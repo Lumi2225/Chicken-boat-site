@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Chicken Boat – Bot Discord</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial, Helvetica, sans-serif;}
+
+body{
+    background:linear-gradient(135deg,#1e1e2f,#2a2a40);
+    color:#fff;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* ===== LOADER ===== */
+#loader{
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#1e1e2f;
+    z-index:9999;
+}
+
+#loader img{
+    width:120px;
+}
+
+#site{
+    opacity:0;
+}
+
+/* ===== NAVIGATION ===== */
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 40px;
+    background:rgba(0,0,0,0.3);
+    position:sticky;
+    top:0;
+    z-index:100;
+    backdrop-filter:blur(10px);
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.brand img{
+    width:32px;height:32px;
+}
+
+.brand span{
+    font-size:1.5rem;font-weight:bold;
+}
+
+.menu{
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+}
+
+.menu button{
+    background:none;
+    border:none;
+    color:#fff;
+    font-size:0.95rem;
+    cursor:pointer;
+    padding:6px 12px;
+    border-radius:6px;
+    transition:.2s;
+}
+
+.menu button:hover,
+.menu button.active{
+    background:rgba(88,101,242,0.3);
+}
+
+/* ===== PAGES ===== */
+.hidden{display:none;}
+.visible{display:block;animation:fade .4s ease;}
+
+@keyframes fade{
+    from{opacity:0;transform:translateY(10px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+/* ===== ACCUEIL ===== */
+header{
+    padding:80px 20px 40px;
+    text-align:center;
+}
+
+header h1{
+    font-size:3rem;
+    margin-bottom:10px;
+}
+
+header h2{
+    font-size:1.4rem;
+    font-weight:normal;
+    color:#ccc;
+}
+
+header p.subtitle{
+    margin-top:15px;
+    font-size:1.05rem;
+    color:#ccc;
+}
+
+.badges{
+    margin-top:25px;
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.badge{
+    background:rgba(0,0,0,0.35);
+    padding:6px 12px;
+    border-radius:999px;
+    font-size:0.85rem;
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+/* Buttons */
+.buttons{
+    margin-top:30px;
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:15px 30px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.btn-primary{background:#5865F2;color:#fff;}
+.btn-primary:hover{background:#4752c4;}
+
+.btn-secondary{
+    background:#2f3136;
+    color:#fff;
+    border:1px solid #444;
+}
+.btn-secondary:hover{background:#3a3d42;}
+
+/* Stats & features */
+section{
+    padding:40px 20px;
+    max-width:1100px;
+    margin:auto;
+}
+
+.section-title{
+    text-align:center;
+    font-size:1.8rem;
+    margin-bottom:10px;
+}
+
+.section-subtitle{
+    text-align:center;
+    color:#bbb;
+    margin-bottom:30px;
+}
+
+.stats{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:20px;
+    margin-bottom:35px;
+}
+
+.stat-card{
+    background:rgba(255,255,255,0.04);
+    border-radius:12px;
+    padding:18px 22px;
+    min-width:180px;
+    text-align:center;
+}
+
+.stat-number{
+    font-size:1.6rem;
+    font-weight:bold;
+    color:#ffd166;
+}
+
+.stat-label{
+    font-size:0.9rem;
+    color:#ccc;
+}
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:20px;
+}
+
+.feature-card{
+    background:rgba(255,255,255,0.03);
+    border-radius:12px;
+    padding:20px 22px;
+}
+
+.feature-card h3{
+    margin-bottom:8px;
+    font-size:1.1rem;
+}
+
+.feature-card p{
+    font-size:0.9rem;
+    color:#ccc;
+}
+
+/* FAQ */
+.faq{
+    max-width:800px;
+    margin:0 auto;
+}
+
+.faq-item{
+    background:rgba(255,255,255,0.03);
+    margin-bottom:12px;
+    border-radius:10px;
+    padding:12px 16px;
+}
+
+.faq-question{
+    font-weight:bold;
+    cursor:pointer;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.faq-answer{
+    margin-top:8px;
+    font-size:0.9rem;
+    color:#ccc;
+    display:none;
+}
+
+/* ===== EQUIPE ===== */
+.team{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+}
+
+.card{
+    background:rgba(255,255,255,0.05);
+    padding:30px;
+    border-radius:12px;
+    text-align:center;
+}
+
+.card img{
+    width:110px;height:110px;
+    border-radius:50%;
+    object-fit:cover;
+    margin-bottom:15px;
+    border:3px solid #5865F2;
+}
+
+.card h3{margin-bottom:6px;}
+.card p{color:#bbb;}
+
+/* ===== LEGAL ===== */
+.legal-block{
+    background:rgba(0,0,0,0.35);
+    border-radius:14px;
+    padding:25px 22px;
+    margin-bottom:25px;
+}
+
+.legal-block h3{
+    margin-bottom:10px;
+    font-size:1.3rem;
+}
+
+.legal-block h4{
+    margin-top:15px;
+    margin-bottom:6px;
+    font-size:1.05rem;
+}
+
+.legal-block p,
+.legal-block li{
+    font-size:0.9rem;
+    color:#ddd;
+}
+
+.legal-block ul{
+    list-style:disc;
+    margin-left:18px;
+    margin-top:4px;
+}
+
+/* ===== FOOTER ===== */
+footer{
+    text-align:center;
+    padding:25px 16px 18px;
+    color:#888;
+    font-size:.85rem;
+    border-top:1px solid rgba(255,255,255,0.05);
+    margin-top:20px;
+}
+footer a{
+    color:#bbb;
+    text-decoration:none;
+    margin:0 8px;
+    font-size:0.85rem;
+}
+footer a:hover{
+    text-decoration:underline;
+}
+</style>
+</head>
+<body>
+
+<!-- ===== LOADER ===== -->
+<div id="loader">
+    <img id="loaderLogo"
+    src="https://imagesend.fr/uploads/20260210/f9cbb07105f0ed13f6c9165e6f983f4b49fe36bb.png"
+    alt="Logo">
+</div>
+
+<!-- ===== SITE ===== -->
+<div id="site">
+
+<nav>
+    <div class="brand">
+        <img src="https://imagesend.fr/uploads/20260210/f9cbb07105f0ed13f6c9165e6f983f4b49fe36bb.png" alt="Chicken Boat logo">
+        <span>Chicken Boat</span>
+    </div>
+
+    <div class="menu">
+        <button class="active" onclick="showPage('home', this)">Accueil</button>
+        <button onclick="showPage('team', this)">Équipe</button>
+        <button onclick="showPage('legal', this)">Légal</button>
+    </div>
+</nav>
+
+<!-- ACCUEIL -->
+<div id="home" class="visible">
+    <header>
+        <h1>Chicken Boat</h1>
+        <h2>Votre bot Discord fiable, fun et performant</h2>
+        <p class="subtitle">
+            Modération, levels, fun, utilitaires et bien plus encore pour donner vie à votre serveur.
+        </p>
+
+        <div class="badges">
+            <span class="badge">⚙️ En développement actif</span>
+            <span class="badge">🇫🇷 Bot français</span>
+            <span class="badge">🛡️ Respect des règles Discord</span>
+        </div>
+
+        <div class="buttons">
+            <a class="btn btn-primary" href="https://discord.com/oauth2/authorize?client_id=1468721902532038870" target="_blank" rel="noopener noreferrer">
+                ➕ Inviter le bot
+            </a>
+            <a class="btn btn-secondary" href="https://discord.gg/KQHhx9C5Wq" target="_blank" rel="noopener noreferrer">
+                💬 Rejoindre le support
+            </a>
+        </div>
+    </header>
+
+    <section>
+        <h2 class="section-title">Pourquoi choisir Chicken Boat ?</h2>
+        <p class="section-subtitle">
+            Tout‑en‑un pour gérer et animer votre communauté en toute simplicité.
+        </p>
+
+        <!-- Stats (à ajuster avec tes vraies données) -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">+10</div>
+                <div class="stat-label">Serveurs actifs</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">+500</div>
+                <div class="stat-label">Utilisateurs uniques</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Disponibilité du bot</div>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="features">
+            <div class="feature-card">
+                <h3>Modération avancée</h3>
+                <p>Sanctions rapides, logs et outils de notification pour garder votre serveur propre.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Fun & mini‑jeux</h3>
+                <p>Commandes fun, mini‑jeux et systèmes de niveaux pour rendre vos salons plus vivants.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Utilitaires pratiques</h3>
+                <p>Logs, infos serveur, outils pour staff, messages automatiques et commandes personnalisées.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Support réactif</h3>
+                <p>Une équipe disponible sur le serveur support pour vous aider à configurer Chicken Boat.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-title">Questions fréquentes</h2>
+        <p class="section-subtitle">
+            Quelques réponses rapides avant d’inviter le bot sur votre serveur.
+        </p>
+
+        <div class="faq">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Chicken Boat est‑il gratuit ?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    Oui, le bot est entièrement gratuit. S’il y a des fonctionnalités premium plus tard, elles seront clairement indiquées.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Quelles permissions sont nécessaires ?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    Le bot demande uniquement les permissions nécessaires à ses fonctionnalités (gestion des messages, gestion des rôles, etc.). Vous pouvez adapter ces permissions depuis Discord si besoin.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Comment obtenir de l’aide ?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    Rejoignez le serveur support via le bouton en haut de cette page pour poser vos questions ou signaler un bug.
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- EQUIPE -->
+<div id="team" class="hidden">
+    <header>
+        <h2>Notre équipe</h2>
+        <p class="subtitle">L’équipe derrière Chicken Boat</p>
+    </header>
+
+    <section>
+        <div class="team">
+
+            <div class="card">
+                <img src="https://imagesend.fr/uploads/2a71a19823d4c4a9ba91bb26ad1028ada3ec1b41.gif" alt="Rimax">
+                <h3>Rimax</h3>
+                <p>Créateur</p>
+            </div>
+
+            <div class="card">
+                <img src="https://imagesend.fr/uploads/20260210/be49d27c617f676c93902394bc944f08b33ca164.png" alt="Kua">
+                <h3>Kua</h3>
+                <p>Fondateur</p>
+            </div>
+
+            <div class="card">
+                <img src="https://imagesend.fr/uploads/20260210/d14aa445601c49b5b1d1d468b6cec1f493e966de.webp" alt="Fourty 3000">
+                <h3>Fourty 3000</h3>
+                <p>Directeur technique</p>
+            </div>
+
+            <div class="card">
+                <img src="https://imagesend.fr/uploads/20260210/89d452e8cd5068d0202a4443886678d99dcb65bc.png" alt="Joynix">
+                <h3>Joynix</h3>
+                <p>Administrateur</p>
+            </div>
+
+        </div>
+    </section>
+</div>
+
+<!-- LEGAL -->
+<div id="legal" class="hidden">
+    <header>
+        <h2>Informations légales</h2>
+        <p class="subtitle">Mentions légales, conditions d’utilisation et politique de confidentialité du bot Chicken Boat.</p>
+    </header>
+
+    <section>
+        <!-- MENTIONS LÉGALES -->
+        <div class="legal-block">
+            <h3>Mentions légales</h3>
+
+            <h4>1. Éditeur du site</h4>
+            <p>
+                Le site chicken-boat.fr (ou le domaine que tu utilises) est édité par :<br>
+                Nom / Pseudonyme : Rimax<br>
+                Statut : PERSONNE PHYSIQUE<br>
+                Adresse : Montreuil 93<br>
+                Email de contact : Soon<br>
+                Discord de contact : @chicken_boat_officiel
+            </p>
+
+            <h4>2. Hébergeur</h4>
+            <p>
+                Hébergeur : Protect cloud<br>
+                Adresse : non communiqué <br>
+                Site web : https://cloud.ndprotect.com
+            </p>
+
+            <h4>3. Propriété intellectuelle</h4>
+            <p>
+                L’ensemble du contenu de ce site (textes, visuels, logo Chicken Boat) est protégé par le droit de la propriété intellectuelle.
+                Toute reproduction, représentation ou adaptation, totale ou partielle, sans autorisation préalable est interdite.
+            </p>
+
+            <h4>4. Droit applicable</h4>
+            <p>
+                Le présent site et son contenu sont soumis au droit français. En cas de litige, et à défaut de résolution amiable, les tribunaux français seront seuls compétents.
+            </p>
+        </div>
+
+        <!-- CONDITIONS D’UTILISATION -->
+        <div class="legal-block">
+            <h3>Conditions d’utilisation du bot</h3>
+
+            <h4>1. Acceptation des conditions</h4>
+            <p>
+                En invitant Chicken Boat sur votre serveur Discord et en utilisant ses fonctionnalités, vous acceptez sans réserve les présentes conditions d’utilisation ainsi que les Conditions d’utilisation et les Règles de communauté de Discord Inc. [web:2][web:5]
+            </p>
+
+            <h4>2. Utilisation prévue</h4>
+            <p>
+                Chicken Boat est destiné à l’animation, la modération et la gestion de serveurs Discord. Vous vous engagez à ne pas utiliser le bot pour des activités illégales, contraires aux règles de Discord ou visant à nuire à d’autres utilisateurs. [web:2][web:8]
+            </p>
+
+            <h4>3. Accès et retrait du bot</h4>
+            <p>
+                L’équipe de Chicken Boat se réserve le droit de retirer le bot d’un serveur ou de bloquer son utilisation en cas de non‑respect des présentes conditions ou de comportement abusif.
+            </p>
+
+            <h4>4. Limitation de responsabilité</h4>
+            <p>
+                L’équipe de développement ne peut être tenue responsable d’un usage détourné du bot par les utilisateurs ou administrateurs de serveurs. Chaque serveur reste responsable de son propre contenu et de sa modération. [web:2]
+            </p>
+
+            <h4>5. Modifications</h4>
+            <p>
+                Les présentes conditions peuvent être mises à jour à tout moment. En continuant à utiliser le bot après une mise à jour, vous acceptez les nouvelles conditions.
+            </p>
+        </div>
+
+        <!-- POLITIQUE DE CONFIDENTIALITÉ -->
+        <div class="legal-block">
+            <h3>Politique de confidentialité</h3>
+
+            <h4>1. Données collectées</h4>
+            <p>
+                Chicken Boat peut collecter certaines informations nécessaires à son fonctionnement, par exemple : ID de serveur, ID d’utilisateur, pseudos, rôles, logs de commandes et paramètres de configuration.
+                Aucune donnée sensible (type mot de passe) n’est collectée. [web:3][web:9]
+            </p>
+
+            <h4>2. Finalité de la collecte</h4>
+            <p>
+                Ces données sont utilisées uniquement pour fournir les fonctionnalités du bot (modération, niveaux, configuration serveur, statistiques), améliorer la qualité du service et assurer la sécurité (détection d’abus, prévention du spam). [web:3]
+            </p>
+
+            <h4>3. Conservation des données</h4>
+            <p>
+                Les données sont conservées pendant la durée nécessaire au fonctionnement du bot et peuvent être supprimées en cas de retrait du bot d’un serveur ou sur demande raisonnable via le support.
+            </p>
+
+            <h4>4. Partage des données</h4>
+            <p>
+                Les données ne sont pas revendues ni partagées avec des tiers, sauf obligation légale ou nécessité technique (hébergeur, base de données, outils d’analyse anonymisés). [web:3]
+            </p>
+
+            <h4>5. Vos droits</h4>
+            <p>
+                Conformément au droit français et européen en vigueur, vous pouvez demander l’accès, la rectification ou la suppression des données vous concernant en contactant l’équipe via le serveur support ou l’email indiqué dans les mentions légales. [web:4]
+            </p>
+        </div>
+    </section>
+</div>
+
+<footer>
+    © 2026 Chicken Boat — Tous droits réservés<br>
+    <a href="#" onclick="showPage('legal', document.querySelector('.menu button:nth-child(3)'));window.scrollTo(0,0);return false;">Mentions légales</a>
+    <a href="#" onclick="showPage('legal', document.querySelector('.menu button:nth-child(3)'));window.scrollTo(0,0);return false;">CGU</a>
+    <a href="#" onclick="showPage('legal', document.querySelector('.menu button:nth-child(3)'));window.scrollTo(0,0);return false;">Confidentialité</a>
+</footer>
+
+</div>
+
+<script>
+// ===== LOADER GSAP =====
+const tl = gsap.timeline();
+
+tl.to("#loaderLogo", {
+    scale:1.2,
+    rotation:360,
+    duration:1.5,
+    ease:"power1.inOut"
+})
+.to("#loaderLogo", {
+    scale:1,
+    rotation:720,
+    duration:1.5,
+    ease:"power1.inOut"
+});
+
+setTimeout(()=>{
+    gsap.to("#loader",{
+        opacity:0,
+        duration:0.8,
+        onComplete:()=>{
+            document.getElementById("loader").style.display="none";
+            gsap.to("#site",{opacity:1,duration:1});
+        }
+    });
+},3000);
+
+
+// ===== NAVIGATION =====
+function showPage(pageId, btn){
+    if(btn){
+        document.querySelectorAll(".menu button").forEach(b=>b.classList.remove("active"));
+        btn.classList.add("active");
+    }
+
+    ["home","team","legal"].forEach(id=>{
+        const el=document.getElementById(id);
+        if(id===pageId){
+            el.classList.remove("hidden");
+            el.classList.add("visible");
+        }else{
+            el.classList.remove("visible");
+            el.classList.add("hidden");
+        }
+    });
+}
+
+// ===== FAQ =====
+function toggleFaq(el){
+    const answer = el.parentElement.querySelector(".faq-answer");
+    const icon = el.querySelector("span:last-child");
+    const isOpen = answer.style.display === "block";
+    answer.style.display = isOpen ? "none" : "block";
+    icon.textContent = isOpen ? "+" : "-";
+}
+</script>
+
+</body>
+</html>
