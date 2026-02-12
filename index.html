@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Chicken Boat – Bot Discord Moderne</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Chicken Boat - Bot Discord français pour modération, levels, fun et utilitaires. Fiable, moderne et 100% gratuit.">
+<meta property="og:title" content="Chicken Boat – Bot Discord Moderne">
+<meta property="og:description" content="Bot Discord français fiable et performant pour votre serveur.">
+<meta property="og:image" content="https://imagesend.fr/uploads/20260210/f9cbb07105f0ed13f6c9165e6f983f4b49fe36bb.png">
+
+<!-- Favicon -->
+<link rel="icon" href="https://imagesend.fr/uploads/20260210/f9cbb07105f0ed13f6c9165e6f983f4b49fe36bb.png" type="image/png">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<style>
+:root {
+    --primary: #5865F2;
+    --primary-dark: #4752C4;
+    --accent: #EB459E;
+    --success: #10B981;
+    --warning: #F59E0B;
+    --glass-bg: rgba(15, 23, 42, 0.9);
+    --glass-border: rgba(148, 163, 184, 0.4);
+    --text-primary: #F8FAFC;
+    --text-secondary: #CBD5E1;
+    --text-muted: #94A3B8;
+    --shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(135deg, #0a0e1a 0%, #1a1f3a 50%, #0f172a 100%);
+    background-attachment: fixed;
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ===== LOADER ===== */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #0a0e1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.loader-logo {
+    width: 100px;
+    height: 100px;
+    animation: spin 2s ease-in-out infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    position: sticky;
+    top: 20px;
+    z-index: 1000;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: white;
+}
+
+.brand img {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+}
+
+.brand span {
+    font-size: 1.4rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary), #A5B4FC);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-link {
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.nav-link:hover, .nav-link.active {
+    background: var(--primary);
+    color: white;
+    border-color: rgba(255,255,255,0.2);
+}
+
+/* ===== PAGES ===== */
+.page {
+    display: none;
+    min-height: 100vh;
+}
+
+.page.active {
+    display: block;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* ===== HERO ===== */
+.hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    padding: 4rem 2rem;
+    background: rgba(15, 23, 42, 0.8);
+    border-radius: 24px;
+    border: 1px solid var(--glass-border);
+    margin-bottom: 4rem;
+    margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+    .hero {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 2rem 1rem;
+    }
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+}
+
+.hero-gradient {
+    background: linear-gradient(135deg, #F8FAFC, #A5B4FC);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.badge {
+    padding: 0.5rem 1rem;
+    background: rgba(17, 24, 39, 0.8);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 1rem 2rem;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    box-shadow: var(--shadow);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--glass-border);
+}
+
+.btn-secondary:hover {
+    background: rgba(88, 101, 242, 0.2);
+}
+
+/* Terminal mockup */
+.terminal {
+    background: linear-gradient(145deg, rgba(17,24,39,0.95), rgba(30,41,59,0.9));
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1px solid var(--glass-border);
+    height: 300px;
+    position: relative;
+}
+
+.terminal-header {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.terminal-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.dot-red { background: #EF4444; }
+.dot-yellow { background: #F59E0B; }
+.dot-green { background: #10B981; }
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(16,185,129,0.2);
+    color: #34D399;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(16,185,129,0.3);
+}
+
+.command-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    background: rgba(15,23,42,0.8);
+    border-radius: 12px;
+    border-left: 4px solid var(--primary);
+    font-family: 'Courier New', monospace;
+}
+
+.cmd-name {
+    color: #A5B4FC;
+    font-weight: 600;
+}
+
+.cmd-desc {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* ===== SECTIONS ===== */
+.section {
+    margin-bottom: 5rem;
+    padding: 3rem 0;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.section-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Stats */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.stat-card {
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    margin-bottom: 1rem;
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* Features */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.feature-card {
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.feature-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 2rem;
+}
+
+.feature-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+/* Dashboard */
+.dashboard-hero {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: rgba(15, 23, 42, 0.9);
+    border-radius: 24px;
+    border: 1px solid var(--glass-border);
+}
+
+.coming-soon-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    background: rgba(245, 158, 11, 0.2);
+    color: #FCD34D;
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    border-radius: 50px;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+}
+
+.dashboard-hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+}
+
+.progress-container {
+    width: 100%;
+    max-width: 400px;
+    height: 12px;
+    background: rgba(30, 58, 138, 0.5);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 2rem auto;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    width: 65%;
+    animation: progress 2s ease-in-out infinite alternate;
+}
+
+@keyframes progress {
+    0% { width: 60%; }
+    100% { width: 70%; }
+}
+
+/* Team */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.team-card {
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+}
+
+.team-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid var(--primary);
+    margin-bottom: 1.5rem;
+}
+
+.team-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.team-role {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+/* FAQ */
+.faq-item {
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 0;
+    text-align: left;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq-answer {
+    margin-top: 1.5rem;
+    color: var(--text-secondary);
+    display: none;
+}
+
+/* Legal */
+.legal-card {
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 3rem;
+    margin-bottom: 2rem;
+}
+
+.legal-card h3 {
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+}
+
+.legal-card h4 {
+    font-size: 1.2rem;
+    margin: 2rem 0 1rem 0;
+    color: var(--text-secondary);
+}
+
+/* Footer */
+footer {
+    background: rgba(10, 15, 30, 0.9);
+    padding: 3rem 1rem 2rem;
+    text-align: center;
+    border-top: 1px solid var(--glass-border);
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+    background: var(--primary);
+    color: white;
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+    <img src="https://imagesend.fr/uploads/20260210/f9cbb07105f0ed13f6c9165e6f983f4b49fe36bb.png" 
+         alt="Chicken Boat" class="loader-logo">
+</div>
+
+<div id="site" style="opacity: 0;">
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <a href="#" class="brand" onclick="showPage('home')">
+            <img src="https://imagesend.fr/uploads/20260210/f9cbb07105f0ed13f6c9165e6f983f4b49fe36bb.png" alt="Chicken Boat">
+            <span>Chicken Boat</span>
+        </a>
+        <div class="nav-menu">
+            <a href="#" class="nav-link active" data-page="home">Accueil</a>
+            <a href="#" class="nav-link" data-page="dashboard">Dashboard</a>
+            <a href="#" class="nav-link" data-page="team">Équipe</a>
+            <a href="#" class="nav-link" data-page="legal">Légal</a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- HOME -->
+        <div id="home" class="page active">
+            <div class="container">
+                <!-- Hero -->
+                <section class="hero">
+                    <div>
+                        <h1>Chicken Boat <span class="hero-gradient">Bot Discord</span></h1>
+                        <p class="hero-subtitle">
+                            Le bot français moderne avec <strong>/soon /aide /embed /stats</strong>. 
+                            100% gratuit, hébergé 24/7 sur Protect Cloud.
+                        </p>
+                        <div class="hero-badges">
+                            <span class="badge">⚙️ 4 commandes live</span>
+                            <span class="badge">🇫🇷 Made in France</span>
+                            <span class="badge">🛡️ Discord ToS OK</span>
+                            <span class="badge">🚀 15 serveurs</span>
+                        </div>
+                        <div class="cta-buttons">
+                            <a href="https://discord.com/oauth2/authorize?client_id=1468721902532038870" 
+                               class="btn btn-primary" target="_blank">
+                                ➕ Inviter le bot
+                            </a>
+                            <a href="https://discord.gg/KQHhx9C5Wq" class="btn btn-secondary" target="_blank">
+                                💬 Support Discord
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dot dot-red"></div>
+                                <div class="terminal-dot dot-yellow"></div>
+                                <div class="terminal-dot dot-green"></div>
+                            </div>
+                            <div style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.95rem;">
+                                Commandes disponibles
+                            </div>
+                            <div class="status-indicator">
+                                <div style="width:8px;height:8px;background:var(--success);border-radius:50%;"></div>
+                                En ligne • 15 serveurs
+                            </div>
+                            <div class="command-item">
+                                <span class="cmd-name">/soon</span>
+                                <span class="cmd-desc">Nouveautés roadmap</span>
+                            </div>
+                            <div class="command-item">
+                                <span class="cmd-name">/aide</span>
+                                <span class="cmd-desc">Liste commandes</span>
+                            </div>
+                            <div class="command-item">
+                                <span class="cmd-name">/embed</span>
+                                <span class="cmd-desc">Créer embeds</span>
+                            </div>
+                            <div class="command-item">
+                                <span class="cmd-name">/stats</span>
+                                <span class="cmd-desc">Stats serveur</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Stats -->
+                <section class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Statistiques Live</h2>
+                        <p class="section-subtitle">Chicken Boat en action</p>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number">15</div>
+                            <div class="stat-label">Serveurs actifs</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">1.2k</div>
+                            <div class="stat-label">Utilisateurs</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">99.9%</div>
+                            <div class="stat-label">Uptime</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">124</div>
+                            <div class="stat-label">Cmd/jour</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Features -->
+                <section class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Nos 4 Commandes</h2>
+                        <p class="section-subtitle">Simples et puissantes</p>
+                    </div>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🚀</div>
+                            <h3>/soon</h3>
+                            <p>Roadmap et futures fonctionnalités en avant-première</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📖</div>
+                            <h3>/aide</h3>
+                            <p>Liste complète de toutes les commandes disponibles</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🎨</div>
+                            <h3>/embed</h3>
+                            <p>Création d'embeds personnalisés pour vos annonces</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📊</div>
+                            <h3>/stats</h3>
+                            <p>Statistiques détaillées de votre serveur Discord</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">FAQ</h2>
+                        <p class="section-subtitle">Questions fréquentes</p>
+                    </div>
+                    <div style="max-width: 800px; margin: 0 auto;">
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFAQ(this)">
+                                <span>✅ Le bot est gratuit ?</span>
+                                <span style="margin-left: auto;">+</span>
+                            </button>
+                            <div class="faq-answer">
+                                <strong>Oui, 100% gratuit !</strong> Aucune limitation, aucune fonctionnalité premium.
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFAQ(this)">
+                                <span>🔒 Permissions requises ?</span>
+                                <span style="margin-left: auto;">+</span>
+                            </button>
+                            <div class="faq-answer">
+                                Uniquement <strong>Envoyer messages + Embeds + Lire historique</strong>. Permissions minimales.
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFAQ(this)">
+                                <span>💬 Support disponible ?</span>
+                                <span style="margin-left: auto;">+</span>
+                            </button>
+                            <div class="faq-answer">
+                                Rejoignez <a href="https://discord.gg/KQHhx9C5Wq" style="color: var(--primary);">notre serveur</a> ou contactez <strong>@chicken_boat_officiel</strong>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- DASHBOARD -->
+        <div id="dashboard" class="page">
+            <div class="container">
+                <div class="dashboard-hero">
+                    <div class="coming-soon-badge">⏳ Dashboard Web - 65%</div>
+                    <h2>Gestion visuelle du bot</h2>
+                    <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 1rem;">
+                        Configurez tout sans commandes
+                    </p>
+                    <div class="progress-container">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <a href="https://discord.gg/KQHhx9C5Wq" class="btn btn-primary" style="margin-top: 2rem; padding: 1.2rem 2.5rem;">
+                        👋 Bêta test
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- TEAM -->
+        <div id="team" class="page">
+            <div class="container">
+                <section class="section" style="margin-top: 2rem;">
+                    <div class="section-header">
+                        <h2 class="section-title">Notre Équipe</h2>
+                    </div>
+                    <div class="team-grid">
+                        <div class="team-card">
+                            <img src="https://imagesend.fr/uploads/2a71a19823d4c4a9ba91bb26ad1028ada3ec1b41.gif" class="team-avatar">
+                            <h3>Rimax</h3>
+                            <div class="team-role">Créateur</div>
+                        </div>
+                        <div class="team-card">
+                            <img src="https://imagesend.fr/uploads/20260210/be49d27c617f676c93902394bc944f08b33ca164.png" class="team-avatar">
+                            <h3>Kua</h3>
+                            <div class="team-role">Fondateur</div>
+                        </div>
+                        <div class="team-card">
+                            <img src="https://imagesend.fr/uploads/20260210/d14aa445601c49b5b1d1d468b6cec1f493e966de.webp" class="team-avatar">
+                            <h3>Fourty 3000</h3>
+                            <div class="team-role">Directeur Technique</div>
+                        </div>
+                        <div class="team-card">
+                            <img src="https://imagesend.fr/uploads/20260210/89d452e8cd5068d0202a4443886678d99dcb65bc.png" class="team-avatar">
+                            <h3>Joynix</h3>
+                            <div class="team-role">Administrateur</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- LEGAL -->
+        <div id="legal" class="page">
+            <div class="container">
+                <section class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Légal</h2>
+                    </div>
+                    <div class="legal-card">
+                        <h3>📋 Mentions Légales</h3>
+                        <p><strong>Éditeur:</strong> Rimax - Personne physique - Montreuil, France</p>
+                        <p><strong>Discord:</strong> @chicken_boat_officiel</p>
+                        <p><strong>Hébergement:</strong> Eminium.ovh (site) / Protect Cloud (bot)</p>
+                    </div>
+                    <div class="legal-card">
+                        <h3>🔒 Confidentialité</h3>
+                        <p>Seuls les ID Discord et paramètres sont collectés pour le fonctionnement. Suppression automatique à la sortie du bot.</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#" onclick="showPage('legal')">📋 Mentions Légales</a>
+            <a href="#" onclick="showPage('legal')">🔒 Confidentialité</a>
+            <a href="https://discord.gg/KQHhx9C5Wq" target="_blank">💬 Support</a>
+        </div>
+        <p>&copy; 2026 Chicken Boat - Montreuil, France</p>
+    </footer>
+</div>
+
+<script>
+    // Loader
+    setTimeout(() => {
+        document.getElementById('loader').style.opacity = '0';
+        setTimeout(() => {
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('site').style.opacity = '1';
+        }, 500);
+    }, 2000);
+
+    // Navigation
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(page => {
+            page.classList.remove('active');
+        });
+        document.getElementById(pageId).classList.add('active');
+        
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+        });
+        document.querySelector(`[data-page="${pageId}"]`).classList.add('active');
+        
+        window.scrollTo(0, 0);
+    }
+
+    // FAQ Toggle
+    function toggleFAQ(button) {
+        const answer = button.nextElementSibling;
+        const toggle = button.querySelector('span:last-child');
+        
+        if (answer.style.display === 'block') {
+            answer.style.display = 'none';
+            toggle.textContent = '+';
+        } else {
+            answer.style.display = 'block';
+            toggle.textContent = '−';
+        }
+    }
+
+    // Smooth hover effects
+    document.querySelectorAll('.stat-card, .feature-card, .team-card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-5px)';
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(0)';
+        });
+    });
+</script>
+
+</body>
+</html>
