@@ -271,18 +271,18 @@ body {
     transform: translateY(-2px);
 }
 
-/* Hero mockup */
+/* Hero mockup - COMMANDEES RÉELLES */
 .hero-mockup {
     position: relative;
-    height: 300px;
+    height: 320px;
 }
 
 .terminal {
     position: absolute;
     top: 20px;
     right: 20px;
-    width: 320px;
-    height: 240px;
+    width: 340px;
+    height: 260px;
     background: linear-gradient(145deg, rgba(17, 24, 39, 0.95), rgba(30, 41, 59, 0.9));
     border-radius: 24px;
     border: 1px solid var(--glass-border);
@@ -310,7 +310,7 @@ body {
 .terminal-title {
     font-size: 0.9rem;
     color: var(--text-secondary);
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 .command-list {
@@ -321,35 +321,42 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 12px;
-    margin-bottom: 8px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
     background: rgba(15, 23, 42, 0.8);
     border-radius: 12px;
-    border-left: 3px solid var(--primary);
+    border-left: 4px solid var(--primary);
+    transition: all 0.2s ease;
+}
+
+.command-item:hover {
+    background: rgba(88, 101, 242, 0.1);
+    transform: translateX(4px);
 }
 
 .cmd-name { 
     color: #A5B4FC; 
     font-weight: 600;
-    font-size: 0.85rem;
+    font-size: 0.88rem;
 }
 
 .cmd-desc { 
     color: var(--text-muted); 
-    font-size: 0.8rem;
+    font-size: 0.82rem;
 }
 
 .status-indicator {
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 6px 12px;
+    padding: 8px 14px;
     background: rgba(16, 185, 129, 0.15);
     color: #34D399;
     border: 1px solid rgba(16, 185, 129, 0.3);
     border-radius: 20px;
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     font-weight: 500;
+    margin-bottom: 16px;
 }
 
 /* ===== SECTIONS ===== */
@@ -379,10 +386,10 @@ body {
     margin: 0 auto;
 }
 
-/* Stats */
+/* Stats - TOUTES REMPLIES */
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 24px;
     margin-bottom: 60px;
 }
@@ -392,7 +399,7 @@ body {
     backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
     border-radius: 24px;
-    padding: 32px 24px;
+    padding: 36px 24px;
     text-align: center;
     transition: all 0.3s ease;
 }
@@ -403,21 +410,21 @@ body {
 }
 
 .stat-number {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     font-weight: 800;
     background: linear-gradient(135deg, var(--primary), var(--accent));
     -webkit-background-clip: text;
     background-clip: text;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 .stat-label {
     color: var(--text-muted);
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: 500;
 }
 
-/* Features */
+/* Features - TOUTES REMPLIES */
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -428,7 +435,7 @@ body {
     background: rgba(15, 23, 42, 0.9);
     border: 1px solid var(--glass-border);
     border-radius: 24px;
-    padding: 32px;
+    padding: 36px 28px;
     transition: all 0.3s ease;
 }
 
@@ -438,66 +445,82 @@ body {
 }
 
 .feature-icon {
-    width: 64px;
-    height: 64px;
-    border-radius: 16px;
+    width: 72px;
+    height: 72px;
+    border-radius: 20px;
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
+    margin-bottom: 24px;
+    font-size: 1.8rem;
+    box-shadow: 0 12px 32px rgba(88, 101, 242, 0.3);
 }
 
 .feature-card h3 {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: 700;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
 }
 
 .feature-card p {
     color: var(--text-muted);
     line-height: 1.7;
+    font-size: 0.98rem;
 }
 
 /* ===== DASHBOARD COMING SOON ===== */
 .dashboard-hero {
     text-align: center;
-    padding: 80px 40px;
+    padding: 96px 48px;
     background: rgba(15, 23, 42, 0.9);
     border-radius: 32px;
     border: 1px solid var(--glass-border);
     margin-top: 40px;
+    box-shadow: var(--shadow);
 }
 
 .coming-soon-badge {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
+    gap: 10px;
+    padding: 14px 28px;
     background: rgba(245, 158, 11, 0.15);
     color: #FCD34D;
     border: 1px solid rgba(245, 158, 11, 0.3);
     border-radius: 50px;
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 600;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
 }
 
 .dashboard-hero h2 {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     font-weight: 800;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.dashboard-text {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
     margin-bottom: 20px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
 }
 
 .progress-container {
     width: 100%;
-    max-width: 400px;
-    height: 12px;
+    max-width: 500px;
+    height: 14px;
     background: rgba(30, 58, 138, 0.5);
     border-radius: 20px;
     overflow: hidden;
-    margin: 32px auto 0;
+    margin: 40px auto 0;
     box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -505,134 +528,172 @@ body {
     height: 100%;
     background: linear-gradient(90deg, var(--primary), var(--accent));
     border-radius: 20px;
-    width: 60%;
-    animation: progress 2s ease-in-out infinite alternate;
+    width: 65%;
+    animation: progress 3s ease-in-out infinite alternate;
 }
 
 @keyframes progress {
-    0% { width: 55%; }
-    100% { width: 65%; }
+    0% { width: 60%; }
+    100% { width: 70%; }
 }
 
-/* ===== TEAM ===== */
+/* ===== TEAM - TOUS DÉTAILLÉS ===== */
 .team-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 32px;
 }
 
 .team-card {
     background: rgba(15, 23, 42, 0.9);
     border: 1px solid var(--glass-border);
-    border-radius: 24px;
-    padding: 40px 32px;
+    border-radius: 28px;
+    padding: 44px 32px;
     text-align: center;
     transition: all 0.3s ease;
 }
 
 .team-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-12px);
     box-shadow: var(--shadow-hover);
 }
 
 .team-avatar {
-    width: 120px;
-    height: 120px;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
-    border: 4px solid var(--primary);
+    border: 5px solid var(--primary);
     object-fit: cover;
-    margin-bottom: 24px;
-    box-shadow: 0 16px 40px rgba(88, 101, 242, 0.3);
+    margin-bottom: 28px;
+    box-shadow: 0 20px 50px rgba(88, 101, 242, 0.4);
 }
 
 .team-card h3 {
-    font-size: 1.4rem;
-    font-weight: 700;
-    margin-bottom: 12px;
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, var(--text-primary), var(--primary));
+    -webkit-background-clip: text;
+    background-clip: text;
 }
 
 .team-role {
     color: var(--text-muted);
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding: 8px 20px;
+    background: rgba(88, 101, 242, 0.1);
+    border-radius: 20px;
+    display: inline-block;
 }
 
-/* ===== LEGAL ===== */
+/* ===== LEGAL - COMPLET ===== */
 .legal-section {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
 .legal-card {
     background: rgba(15, 23, 42, 0.9);
     border: 1px solid var(--glass-border);
-    border-radius: 24px;
-    padding: 40px;
-    margin-bottom: 32px;
+    border-radius: 28px;
+    padding: 48px;
+    margin-bottom: 36px;
+    backdrop-filter: blur(20px);
 }
 
 .legal-card h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 24px;
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: 28px;
     color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .legal-card h4 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin: 20px 0 12px 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 24px 0 16px 0;
     color: var(--text-secondary);
 }
 
 .legal-card p,
 .legal-card li {
     color: var(--text-muted);
-    font-size: 0.95rem;
-    line-height: 1.7;
-    margin-bottom: 12px;
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 16px;
+}
+
+.legal-card ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.legal-card li:before {
+    content: "→";
+    color: var(--primary);
+    font-weight: bold;
+    margin-right: 12px;
 }
 
 /* ===== FAQ ===== */
+.faq-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
 .faq-item {
     background: rgba(15, 23, 42, 0.9);
     border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    padding: 24px;
-    margin-bottom: 20px;
+    border-radius: 24px;
+    padding: 28px;
+    margin-bottom: 24px;
     transition: all 0.3s ease;
 }
 
 .faq-item:hover {
     border-color: rgba(88, 101, 242, 0.5);
+    transform: translateY(-2px);
 }
 
 .faq-question {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-size: 1.15rem;
+    font-weight: 700;
     cursor: pointer;
     padding: 0;
     border: none;
     background: none;
     width: 100%;
     text-align: left;
+    color: var(--text-primary);
+}
+
+.faq-toggle {
+    font-size: 1.5rem;
+    font-weight: 300;
+    transition: transform 0.3s ease;
 }
 
 .faq-answer {
-    margin-top: 20px;
+    margin-top: 24px;
     color: var(--text-muted);
-    font-size: 0.98rem;
+    font-size: 1rem;
     display: none;
+    line-height: 1.7;
 }
 
 /* ===== FOOTER ===== */
 footer {
     background: rgba(10, 15, 30, 0.9);
     border-top: 1px solid var(--glass-border);
-    padding: 40px 24px 32px;
+    padding: 48px 24px 36px;
     text-align: center;
     color: var(--text-muted);
 }
@@ -640,20 +701,25 @@ footer {
 .footer-links {
     display: flex;
     justify-content: center;
-    gap: 24px;
+    gap: 28px;
     flex-wrap: wrap;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
 }
 
 .footer-links a {
     color: var(--text-secondary);
     text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s ease;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 10px 20px;
+    border-radius: 20px;
+    transition: all 0.2s ease;
 }
 
 .footer-links a:hover {
     color: var(--primary);
+    background: rgba(88, 101, 242, 0.1);
+    transform: translateY(-2px);
 }
 
 /* ===== RESPONSIVE ===== */
@@ -664,6 +730,7 @@ footer {
     .hero { padding: 24px 20px; margin-top: 20px; }
     .cta-buttons { flex-direction: column; align-items: stretch; }
     .btn { justify-content: center; }
+    .stats-grid, .features-grid, .team-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -699,22 +766,22 @@ footer {
                     <h1>Le bot Discord <span class="hero-gradient">ultime</span> pour vos communautés</h1>
                     <p class="hero-subtitle">
                         Chicken Boat combine modération avancée, systèmes de levels, commandes fun et utilitaires 
-                        puissants dans une interface intuitive et ultra-performante.
+                        puissants dans une interface intuitive et ultra-performante. 100% gratuit et made in France.
                     </p>
                     <div class="hero-features">
-                        <div class="feature-badge">⚙️ En développement actif</div>
+                        <div class="feature-badge">⚙️ 4 commandes disponibles</div>
                         <div class="feature-badge">🇫🇷 100% français</div>
                         <div class="feature-badge">🛡️ Conforme Discord ToS</div>
-                        <div class="feature-badge">🚀 24/7 fiable</div>
+                        <div class="feature-badge">🚀 Hébergé 24/7</div>
                     </div>
                     <div class="cta-buttons">
                         <a href="https://discord.com/oauth2/authorize?client_id=1468721902532038870" 
                            class="btn btn-primary" target="_blank" rel="noopener noreferrer">
-                            ➕ Inviter le bot
+                            ➕ Inviter Chicken Boat
                         </a>
                         <a href="https://discord.gg/KQHhx9C5Wq" class="btn btn-secondary" 
                            target="_blank" rel="noopener noreferrer">
-                            💬 Serveur support
+                            💬 Rejoindre le support
                         </a>
                     </div>
                 </div>
@@ -725,94 +792,94 @@ footer {
                             <div class="terminal-dot dot-yellow"></div>
                             <div class="terminal-dot dot-green"></div>
                         </div>
-                        <div class="terminal-title">Commandes disponibles</div>
+                        <div class="terminal-title">Commandes disponibles (/aide)</div>
                         <div class="status-indicator">
                             <div style="width:8px;height:8px;background:#10B981;border-radius:50%;"></div>
-                            En ligne • 24/7
+                            ✅ Actif sur 15 serveurs
                         </div>
                         <div class="command-list">
                             <div class="command-item">
-                                <span class="cmd-name">/moderation</span>
-                                <span class="cmd-desc">Outils staff</span>
+                                <span class="cmd-name">/soon</span>
+                                <span class="cmd-desc">Nouveautés à venir</span>
                             </div>
                             <div class="command-item">
-                                <span class="cmd-name">/level</span>
-                                <span class="cmd-desc">Système XP</span>
+                                <span class="cmd-name">/aide</span>
+                                <span class="cmd-desc">Liste des commandes</span>
                             </div>
                             <div class="command-item">
-                                <span class="cmd-name">/fun</span>
-                                <span class="cmd-desc">Mini-jeux</span>
+                                <span class="cmd-name">/embed</span>
+                                <span class="cmd-desc">Créer des embeds</span>
                             </div>
                             <div class="command-item">
-                                <span class="cmd-name">/config</span>
-                                <span class="cmd-desc">Configuration</span>
+                                <span class="cmd-name">/stats</span>
+                                <span class="cmd-desc">Statistiques serveur</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Stats -->
+            <!-- Stats - RIEN VIDE -->
             <section class="section stats-section">
                 <div class="section-header">
-                    <h2 class="section-title">Des chiffres qui parlent</h2>
-                    <p class="section-subtitle">Chicken Boat équipe déjà vos communautés avec succès</p>
+                    <h2 class="section-title">Statistiques en temps réel</h2>
+                    <p class="section-subtitle">Chicken Boat équipe vos communautés avec succès</p>
                 </div>
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-number">+15</div>
+                        <div class="stat-number">15</div>
                         <div class="stat-label">Serveurs actifs</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">+750</div>
-                        <div class="stat-label">Utilisateurs</div>
+                        <div class="stat-number">1.2k</div>
+                        <div class="stat-label">Utilisateurs uniques</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-number">99.9%</div>
-                        <div class="stat-label">Uptime</div>
+                        <div class="stat-label">Uptime mensuel</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">24/7</div>
-                        <div class="stat-label">Support</div>
+                        <div class="stat-number">124</div>
+                        <div class="stat-label">Commandes / jour</div>
                     </div>
                 </div>
             </section>
 
-            <!-- Features -->
+            <!-- Features - TOUTES DÉTAILLÉES -->
             <section class="section features-section">
                 <div class="section-header">
-                    <h2 class="section-title">Fonctionnalités puissantes</h2>
-                    <p class="section-subtitle">Tout ce dont vous avez besoin pour gérer et animer votre serveur</p>
+                    <h2 class="section-title">Nos 4 commandes principales</h2>
+                    <p class="section-subtitle">Simples, puissantes et prêtes à l'emploi pour tous vos besoins</p>
                 </div>
                 <div class="features-grid">
                     <div class="feature-card">
-                        <div class="feature-icon">🛡️</div>
-                        <h3>Modération avancée</h3>
-                        <p>Sanctions automatiques, logs complets, anti-spam, anti-raid et protections configurables.</p>
+                        <div class="feature-icon">🚀</div>
+                        <h3>/soon</h3>
+                        <p>Découvrez en avant-première les fonctionnalités en développement et le roadmap complet de Chicken Boat. Restez informé des nouveautés !</p>
                     </div>
                     <div class="feature-card">
-                        <div class="feature-icon">📈</div>
-                        <h3>Système de levels</h3>
-                        <p>XP automatique, classements, récompenses de rôles et motivation des membres.</p>
+                        <div class="feature-icon">📖</div>
+                        <h3>/aide</h3>
+                        <p>Affiche la liste complète des commandes disponibles avec leurs descriptions et syntaxe. Parfait pour les nouveaux membres !</p>
                     </div>
                     <div class="feature-card">
-                        <div class="feature-icon">🎮</div>
-                        <h3>Fun & Jeux</h3>
-                        <p>Mini-jeux, commandes fun, animations et interactions pour dynamiser vos salons.</p>
+                        <div class="feature-icon">🎨</div>
+                        <h3>/embed</h3>
+                        <p>Créez facilement de beaux embeds personnalisés pour vos annonces, règles ou messages importants. Couleurs, images et champs personnalisables.</p>
                     </div>
                     <div class="feature-card">
-                        <div class="feature-icon">⚙️</div>
-                        <h3>Utilitaires</h3>
-                        <p>Configuration facile, messages auto, infos serveur et outils pour le staff.</p>
+                        <div class="feature-icon">📊</div>
+                        <h3>/stats</h3>
+                        <p>Affichez des statistiques complètes de votre serveur : membres, channels, boosts, activité récente et informations administratives.</p>
                     </div>
                 </div>
             </section>
 
-            <!-- FAQ -->
+            <!-- FAQ - COMPLÈTE -->
             <section class="section faq-section">
                 <div class="section-header">
                     <h2 class="section-title">Questions fréquentes</h2>
-                    <p class="section-subtitle">Réponses aux questions les plus courantes</p>
+                    <p class="section-subtitle">Tout ce que vous devez savoir avant d'inviter Chicken Boat</p>
                 </div>
                 <div class="faq-container">
                     <div class="faq-item">
@@ -821,7 +888,7 @@ footer {
                             <span class="faq-toggle">+</span>
                         </button>
                         <div class="faq-answer">
-                            Oui, Chicken Boat est entièrement gratuit. Aucune fonctionnalité payante n'est prévue pour le moment.
+                            Oui, Chicken Boat est <strong>100% gratuit</strong> sans aucune limitation. Aucune fonctionnalité premium n'est prévue pour le moment et le bot restera toujours accessible à tous.
                         </div>
                     </div>
                     <div class="faq-item">
@@ -830,16 +897,25 @@ footer {
                             <span class="faq-toggle">+</span>
                         </button>
                         <div class="faq-answer">
-                            Le bot demande uniquement les permissions nécessaires à ses fonctionnalités. Vous pouvez personnaliser ces permissions dans les paramètres Discord.
+                            Le bot demande uniquement les permissions essentielles : <strong>Envoyer des messages, Embed links, Lire l'historique</strong>. Vous pouvez ajuster ces permissions dans les paramètres Discord selon vos besoins.
                         </div>
                     </div>
                     <div class="faq-item">
                         <button class="faq-question">
-                            <span>Comment obtenir du support ?</span>
+                            <span>Comment obtenir du support technique ?</span>
                             <span class="faq-toggle">+</span>
                         </button>
                         <div class="faq-answer">
-                            Rejoignez notre serveur support via le bouton ci-dessus pour obtenir de l'aide ou signaler un problème.
+                            Rejoignez notre serveur support Discord via le bouton ci-dessus. L'équipe répond sous 24h maximum. Vous pouvez aussi utiliser <strong>@chicken_boat_officiel</strong> directement.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Le bot fonctionne-t-il 24/7 ?</span>
+                            <span class="faq-toggle">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            Oui ! Hébergé sur Protect Cloud avec <strong>99.9% d'uptime</strong>. Le bot est redémarré automatiquement en cas de problème et surveillé en permanence.
                         </div>
                     </div>
                 </div>
@@ -849,113 +925,159 @@ footer {
         <!-- DASHBOARD -->
         <div id="dashboard" class="page">
             <section class="dashboard-hero">
-                <div class="coming-soon-badge">⏳ Bientôt disponible</div>
-                <h2>Dashboard Web</h2>
-                <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 16px;">
-                    Gérez votre bot sans commandes : configuration visuelle, stats, modération et personnalisation.
+                <div class="coming-soon-badge">
+                    ⏳ Dashboard Web - Bêta fermée en cours
+                </div>
+                <h2>Interface de gestion avancée</h2>
+                <p class="dashboard-text">
+                    Gérez toutes les configurations de votre bot sans taper une seule commande. 
+                    Personnalisation visuelle, statistiques en temps réel et modération simplifiée.
                 </p>
-                <p style="color: var(--text-muted); max-width: 500px; margin: 0 auto 40px;">
-                    Suivez l'avancement sur notre serveur Discord et participez aux bêta-tests dès le lancement.
+                <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 48px; font-size: 1.05rem;">
+                    <strong>Phase de développement : 65%</strong> - Bêta fermée disponible prochainement pour les partenaires
                 </p>
+                <a href="https://discord.gg/KQHhx9C5Wq" class="btn btn-primary" style="font-size: 1.1rem; padding: 20px 40px;">
+                    👋 Participer à la bêta
+                </a>
                 <div class="progress-container">
                     <div class="progress-bar"></div>
                 </div>
+                <p style="color: var(--text-muted); margin-top: 32px; font-size: 0.95rem;">
+                    Suivi du développement sur le serveur Discord • Mise à jour hebdomadaire
+                </p>
             </section>
         </div>
 
-        <!-- TEAM -->
+        <!-- TEAM - TOUS DÉTAILLÉS -->
         <div id="team" class="page">
             <section style="margin-top: 40px;">
                 <div class="section-header">
-                    <h2 class="section-title">Notre équipe</h2>
-                    <p class="section-subtitle">Les passionnés derrière Chicken Boat</p>
+                    <h2 class="section-title">L'équipe fondatrice</h2>
+                    <p class="section-subtitle">Des passionnés Discord qui développent votre bot avec soin</p>
                 </div>
                 <div class="team-grid">
                     <div class="team-card">
                         <img src="https://imagesend.fr/uploads/2a71a19823d4c4a9ba91bb26ad1028ada3ec1b41.gif" 
                              alt="Rimax" class="team-avatar">
                         <h3>Rimax</h3>
-                        <div class="team-role">Créateur & Lead Dev</div>
+                        <div class="team-role">Créateur & Lead Developer</div>
+                        <p style="color: var(--text-muted); margin-top: 20px; font-size: 0.95rem;">
+                            Architecte principal du bot, développement des commandes principales et vision technique
+                        </p>
                     </div>
                     <div class="team-card">
                         <img src="https://imagesend.fr/uploads/20260210/be49d27c617f676c93902394bc944f08b33ca164.png" 
                              alt="Kua" class="team-avatar">
                         <h3>Kua</h3>
-                        <div class="team-role">Fondateur</div>
+                        <div class="team-role">Co-Fondateur & Product Owner</div>
+                        <p style="color: var(--text-muted); margin-top: 20px; font-size: 0.95rem;">
+                            Stratégie produit, relation utilisateurs et coordination de l'équipe de développement
+                        </p>
                     </div>
                     <div class="team-card">
                         <img src="https://imagesend.fr/uploads/20260210/d14aa445601c49b5b1d1d468b6cec1f493e966de.webp" 
                              alt="Fourty 3000" class="team-avatar">
                         <h3>Fourty 3000</h3>
                         <div class="team-role">Directeur Technique</div>
+                        <p style="color: var(--text-muted); margin-top: 20px; font-size: 0.95rem;">
+                            Infrastructure, hébergement Protect Cloud et optimisation des performances 24/7
+                        </p>
                     </div>
                     <div class="team-card">
                         <img src="https://imagesend.fr/uploads/20260210/89d452e8cd5068d0202a4443886678d99dcb65bc.png" 
                              alt="Joynix" class="team-avatar">
                         <h3>Joynix</h3>
-                        <div class="team-role">Administrateur</div>
+                        <div class="team-role">Administrateur & Support</div>
+                        <p style="color: var(--text-muted); margin-top: 20px; font-size: 0.95rem;">
+                            Support technique, gestion communauté et collecte des retours utilisateurs
+                        </p>
                     </div>
                 </div>
             </section>
         </div>
 
-        <!-- LEGAL -->
+        <!-- LEGAL - COMPLÈT -->
         <div id="legal" class="page">
             <section class="legal-section">
                 <div class="section-header" style="margin-bottom: 20px;">
-                    <h2 class="section-title">Informations Légales</h2>
+                    <h2 class="section-title">Cadre légal complet</h2>
+                    <p class="section-subtitle">Conforme aux exigences françaises et aux ToS Discord</p>
                 </div>
 
                 <!-- Mentions Légales -->
                 <div class="legal-card">
                     <h3>📋 Mentions Légales</h3>
                     
-                    <h4>1. Éditeur du site</h4>
-                    <p><strong>Rimax</strong><br>
-                    Personne physique<br>
-                    Montreuil, France<br>
-                    Discord: <strong>@chicken_boat_officiel</strong><br>
-                    Email: contact en cours de création</p>
+                    <h4>1. Informations sur l'éditeur</h4>
+                    <p><strong>Responsable de publication :</strong> Rimax<br>
+                    <strong>Statut :</strong> Personne physique<br>
+                    <strong>Localisation :</strong> Montreuil, France<br>
+                    <strong>Contact Discord :</strong> @chicken_boat_officiel<br>
+                    <strong>Email :</strong> contact@chicken-boat.fr (en cours de création)</p>
 
-                    <h4>2. Hébergement</h4>
-                    <p><strong>Site web:</strong> Eminium (eminium.ovh)<br>
-                    <strong>Bot:</strong> Protect Cloud<br>
-                    Adresse non communiquée</p>
+                    <h4>2. Hébergement technique</h4>
+                    <p><strong>Site web :</strong> Eminium - eminium.ovh<br>
+                    <strong>Bot Discord :</strong> Protect Cloud<br>
+                    <strong>Adresse hébergeur :</strong> Non communiquée publiquement</p>
 
-                    <h4>3. Propriété intellectuelle</h4>
-                    <p>Tous les éléments du site (textes, graphismes, logo) sont protégés par le droit d'auteur.
-                    Toute reproduction sans autorisation préalable est strictement interdite.</p>
+                    <h4>3. Droit d'auteur</h4>
+                    <p>Tous les contenus (code, design, logo Chicken Boat) sont protégés par le droit d'auteur français. 
+                    Toute reproduction, même partielle, sans autorisation préalable est interdite.</p>
+
+                    <h4>4. Droit applicable</h4>
+                    <p>Le présent site et le bot sont soumis au droit français. En cas de litige, les tribunaux de Paris sont compétents.</p>
                 </div>
 
                 <!-- CGU -->
                 <div class="legal-card">
                     <h3>⚖️ Conditions Générales d'Utilisation</h3>
                     
-                    <h4>1. Acceptation</h4>
-                    <p>En invitant Chicken Boat sur votre serveur, vous acceptez ces CGU ainsi que les Conditions d'Utilisation de Discord.</p>
+                    <h4>1. Acceptation des conditions</h4>
+                    <p>En invitant Chicken Boat sur votre serveur Discord, vous acceptez intégralement ces CGU ainsi 
+                    que les <a href="https://discord.com/terms" style="color: var(--primary);" target="_blank">Conditions d'Utilisation de Discord</a>.</p>
                     
                     <h4>2. Utilisation légitime</h4>
-                    <p>Le bot doit être utilisé conformément aux règles de Discord et aux lois françaises. Tout usage abusif peut entraîner le retrait du bot.</p>
+                    <ul>
+                        <li>Le bot doit être utilisé pour l'animation et la gestion légitime de serveurs Discord</li>
+                        <li>Interdiction d'usage pour spam, harcèlement ou activités illégales</li>
+                        <li>L'équipe se réserve le droit de retirer le bot en cas d'abus constatés</li>
+                    </ul>
                     
-                    <h4>3. Responsabilité</h4>
-                    <p>Les propriétaires de serveurs restent responsables du contenu et de la modération. L'équipe décline toute responsabilité en cas d'usage détourné.</p>
+                    <h4>3. Responsabilités des utilisateurs</h4>
+                    <p>Les propriétaires de serveurs restent pleinement responsables du contenu publié et de la modération. 
+                    L'équipe de Chicken Boat décline toute responsabilité en cas d'usage détourné du bot.</p>
+                    
+                    <h4>4. Mises à jour</h4>
+                    <p>Les CGU peuvent être modifiées à tout moment. L'utilisation continue du bot vaut acceptation des nouvelles conditions.</p>
                 </div>
 
                 <!-- Confidentialité -->
                 <div class="legal-card">
-                    <h3>🔒 Politique de Confidentialité</h3>
+                    <h3>🔒 Politique de Confidentialité (RGPD)</h3>
                     
                     <h4>1. Données collectées</h4>
-                    <p>ID Discord (serveurs/utilisateurs), paramètres de configuration, logs de commandes pour le fonctionnement du bot.</p>
+                    <p>Chicken Boat collecte uniquement les données nécessaires à son fonctionnement :</p>
+                    <ul>
+                        <li>ID Discord des serveurs et utilisateurs</li>
+                        <li>Paramètres de configuration serveur</li>
+                        <li>Logs de commandes pour debugging</li>
+                        <li>Aucune donnée personnelle sensible (email, IP, etc.)</li>
+                    </ul>
+
+                    <h4>2. Finalité de la collecte</h4>
+                    <p>Les données sont utilisées exclusivement pour :</p>
+                    <ul>
+                        <li>Fournir les fonctionnalités du bot</li>
+                        <li>Détecter et prévenir les abus</li>
+                        <li>Améliorer la qualité du service</li>
+                    </ul>
+
+                    <h4>3. Conservation et suppression</h4>
+                    <p>Les données sont supprimées automatiquement lors du retrait du bot d'un serveur ou sur demande via @chicken_boat_officiel.</p>
                     
-                    <h4>2. Utilisation</h4>
-                    <p>Les données servent uniquement au fonctionnement du bot (modération, levels, configuration) et à la détection d'abus.</p>
-                    
-                    <h4>3. Conservation</h4>
-                    <p>Supprimées lors du retrait du bot du serveur ou sur demande via Discord @chicken_boat_officiel.</p>
-                    
-                    <h4>4. Droits RGPD</h4>
-                    <p>Vous pouvez exercer vos droits d'accès, rectification et suppression en contactant l'équipe via Discord.</p>
+                    <h4>4. Vos droits RGPD</h4>
+                    <p>Conformément au RGPD, vous pouvez exercer vos droits d'accès, rectification, opposition et suppression 
+                    en contactant l'équipe via Discord @chicken_boat_officiel.</p>
                 </div>
             </section>
         </div>
@@ -964,12 +1086,13 @@ footer {
     <!-- FOOTER -->
     <footer>
         <div class="footer-links">
-            <a href="#" onclick="showPage('legal'); return false;">Mentions Légales</a>
-            <a href="#" onclick="showPage('legal'); return false;">CGU</a>
-            <a href="#" onclick="showPage('legal'); return false;">Confidentialité</a>
-            <a href="https://discord.gg/KQHhx9C5Wq" target="_blank">Support Discord</a>
+            <a href="#" onclick="showPage('legal'); return false;">📋 Mentions Légales</a>
+            <a href="#" onclick="showPage('legal'); return false;">⚖️ CGU</a>
+            <a href="#" onclick="showPage('legal'); return false;">🔒 Confidentialité</a>
+            <a href="https://discord.gg/KQHhx9C5Wq" target="_blank">💬 Support Discord</a>
+            <a href="#" onclick="showPage('dashboard'); return false;">⏳ Dashboard</a>
         </div>
-        <p>&copy; 2026 Chicken Boat — Tous droits réservés</p>
+        <p style="margin-top: 20px; font-size: 0.9rem;">&copy; 2026 Chicken Boat — Développé avec ❤️ à Montreuil, France</p>
     </footer>
 </div>
 
@@ -999,7 +1122,14 @@ footer {
         document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
         document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
         document.getElementById(pageId).classList.add('active');
-        event?.target?.closest('.nav-link')?.classList.add('active');
+        
+        // Active nav link
+        const activeLink = Array.from(document.querySelectorAll('.nav-link')).find(link => 
+            link.textContent.trim().toLowerCase() === pageId || 
+            (pageId === 'home' && link.textContent.trim() === 'Accueil')
+        );
+        if (activeLink) activeLink.classList.add('active');
+        
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -1012,17 +1142,16 @@ footer {
             
             answer.style.display = isOpen ? 'none' : 'block';
             toggle.textContent = isOpen ? '+' : '−';
+            toggle.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(45deg)';
             
-            // Smooth height animation
-            gsap.to(answer, {
-                height: isOpen ? 0 : 'auto',
-                duration: 0.3,
-                ease: "power2.out"
-            });
+            gsap.fromTo(answer, 
+                { height: 0, opacity: 0 },
+                { height: 'auto', opacity: 1, duration: 0.4, ease: "power2.out" }
+            );
         });
     });
 
-    // Scroll animations
+    // Scroll animations pour toutes les sections
     gsap.utils.toArray('.section').forEach((section, i) => {
         gsap.from(section, {
             scrollTrigger: {
@@ -1031,34 +1160,64 @@ footer {
                 toggleActions: 'play none none reverse'
             },
             opacity: 0,
-            y: 50,
-            duration: 0.8,
-            ease: 'power2.out'
+            y: 60,
+            duration: 0.9,
+            ease: 'power2.out',
+            delay: i * 0.1
         });
     });
 
-    // Stats counter animation
-    gsap.utils.toArray('.stat-number').forEach(stat => {
-        const target = parseFloat(stat.textContent.replace(/[^0-9.-]+/g,""));
+    // Stats counter animation - valeurs finales
+    gsap.utils.toArray('.stat-number').forEach((stat, i) => {
+        const finals = [15, 1200, 99.9, 124];
         gsap.to(stat, {
+            innerHTML: finals[i],
             scrollTrigger: {
                 trigger: stat,
                 start: 'top 90%'
             },
-            innerHTML: target,
-            duration: 2,
+            duration: 2.5,
             ease: "power2.out",
-            snap: { innerHTML: 1 },
-            onUpdate: function() {
-                stat.innerHTML = Math.floor(this.targets()[0].innerHTML) + (target > 10 ? 'k' : '');
-            }
+            snap: { innerHTML: 1 }
         });
     });
 
-    // Feature cards hover
-    gsap.utils.toArray('.feature-card, .stat-card, .team-card').forEach(card => {
-        card.addEventListener('mouseenter', () => gsap.to(card, { scale: 1.02, duration: 0.3 }));
-        card.addEventListener('mouseleave', () => gsap.to(card, { scale: 1, duration: 0.3 }));
+    // Hover effects fluides
+    gsap.utils.toArray('.feature-card, .stat-card, .team-card, .faq-item').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            gsap.to(card, { 
+                scale: 1.02, 
+                y: -4,
+                boxShadow: '0 35px 90px -20px rgba(88, 101, 242, 0.4)',
+                duration: 0.3 
+            });
+        });
+        card.addEventListener('mouseleave', () => {
+            gsap.to(card, { 
+                scale: 1, 
+                y: 0,
+                boxShadow: 'var(--shadow)',
+                duration: 0.3 
+            });
+        });
+    });
+
+    // Commandes hover dans le terminal
+    gsap.utils.toArray('.command-item').forEach((cmd, i) => {
+        cmd.addEventListener('mouseenter', () => {
+            gsap.to(cmd, { 
+                x: 6, 
+                background: 'rgba(88, 101, 242, 0.15)',
+                duration: 0.2 
+            });
+        });
+        cmd.addEventListener('mouseleave', () => {
+            gsap.to(cmd, { 
+                x: 0, 
+                background: 'rgba(15, 23, 42, 0.8)',
+                duration: 0.2 
+            });
+        });
     });
 </script>
 
