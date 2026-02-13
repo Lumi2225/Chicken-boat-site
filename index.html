@@ -1,20 +1,45 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>Chicken Boat – Bot Discord en développement</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Chicken Boat - Bot Discord français pour modération, levels, fun et utilitaires. Fiable, moderne et 100% gratuit.">
-<meta property="og:title" content="Chicken Boat – Bot Discord Moderne">
-<meta property="og:description" content="Bot Discord français fiable et performant pour votre serveur.">
-<meta property="og:image" content="https://imagesend.fr/uploads/20260210/f9cbb07105f0ed13f6c9165e6f983f4b49fe36bb.png">
-
-<!-- Favicon -->
-<link rel="icon" href="https://imagesend.fr/uploads/20260210/f9cbb07105f0ed13f6c9165e6f983f4b49fe36bb.png" type="image/png">
-
-<!-- GSAP + ScrollTrigger -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Chicken Boat – Bot Discord Français | Modération & Fun</title>
+    <meta name="description" content="Chicken Boat - Bot Discord français 100% gratuit pour modération, levels, fun et utilitaires. Fiable, moderne et conforme aux règles Discord.">
+    <meta name="keywords" content="bot discord, modération, levels, fun, français, gratuit, chicken boat">
+    <meta name="author" content="Rimax - Chicken Boat">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Chicken Boat – Bot Discord Moderne">
+    <meta property="og:description" content="Bot Discord français fiable et performant pour votre serveur.">
+    <meta property="og:image" content="https://imagesend.fr/uploads/20260210/f9cbb07105f0ed13f6c9165e6f983f4b49fe36bb.png">
+    <meta property="og:url" content="https://chickenboat.fr">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Chicken Boat">
+    <meta property="og:locale" content="fr_FR">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Chicken Boat – Bot Discord Moderne">
+    <meta name="twitter:description" content="Bot Discord français fiable et performant pour votre serveur.">
+    <meta name="twitter:image" content="https://imagesend.fr/uploads/20260210/f9cbb07105f0ed13f6c9165e6f983f4b49fe36bb.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://imagesend.fr/uploads/20260210/f9cbb07105f0ed13f6c9165e6f983f4b49fe36bb.png" type="image/png">
+    <link rel="apple-touch-icon" href="https://imagesend.fr/uploads/20260210/f9cbb07105f0ed13f6c9165e6f983f4b49fe36bb.png">
+    
+    <!-- Preconnect pour performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://imagesend.fr">
+    
+    <!-- Police -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
 <style>
 :root {
@@ -41,7 +66,7 @@
 html { scroll-behavior: smooth; }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
     background: 
         radial-gradient(circle at 20% 80%, rgba(88, 101, 242, 0.3) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, rgba(235, 69, 158, 0.3) 0%, transparent 50%),
@@ -49,6 +74,8 @@ body {
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
 }
 
 /* ===== LOADER ===== */
@@ -68,6 +95,8 @@ body {
     height: 120px;
     filter: drop-shadow(0 0 30px var(--primary));
     animation: spin 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+    object-fit: contain;
+    border-radius: 50%;
 }
 
 @keyframes spin {
@@ -139,12 +168,16 @@ body {
     font-size: 0.95rem;
     transition: all 0.2s ease;
     border: 1px solid transparent;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 
 .nav-link:hover {
     color: var(--text-primary);
     background: rgba(255, 255, 255, 0.08);
     transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(88, 101, 242, 0.2);
 }
 
 .nav-link.active {
@@ -154,8 +187,17 @@ body {
 }
 
 /* ===== PAGES ===== */
-.page { display: none; }
-.page.active { display: block; animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+.page { 
+    display: none; 
+    min-height: calc(100vh - 80px);
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.page.active { 
+    display: block; 
+    animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
 
 @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(30px); }
@@ -166,26 +208,12 @@ body {
 .main-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 60px 24px;
+    padding: 40px 24px;
 }
 
 /* ===== HERO SECTION ===== */
-.hero {
-    display: grid;
-    grid-template-columns: 1.3fr 1fr;
-    gap: 48px;
-    align-items: center;
-    margin-top: 40px;
-    padding: 48px;
-    border-radius: 32px;
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(32px) saturate(200%);
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--shadow);
-}
-
-@media (max-width: 900px) {
-    .hero { grid-template-columns: 1fr; gap: 32px; padding: 32px 24px; }
+.hero-content {
+    max-width: 600px;
 }
 
 .hero-content h1 {
@@ -213,7 +241,8 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    margin: 28px 0;
+    margin: 20px 0;
+    max-width: 500px;
 }
 
 .feature-badge {
@@ -232,7 +261,8 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
-    margin-top: 32px;
+    margin-top: 24px;
+    max-width: 400px;
 }
 
 .btn {
@@ -272,21 +302,37 @@ body {
 }
 
 /* Hero mockup */
+.hero {
+    display: grid;
+    grid-template-columns: 1fr 500px;
+    gap: 60px;
+    align-items: center;
+    padding: 60px 40px;
+    background: rgba(15, 23, 42, 0.6);
+    border-radius: 32px;
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    margin-top: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
 .hero-mockup {
     position: relative;
-    height: 300px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .terminal {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 320px;
-    height: 240px;
+    width: 100%;
+    max-width: 450px;
+    height: auto;
     background: linear-gradient(145deg, rgba(17, 24, 39, 0.95), rgba(30, 41, 59, 0.9));
-    border-radius: 24px;
+    border-radius: 20px;
     border: 1px solid var(--glass-border);
-    padding: 24px;
+    padding: 20px;
     box-shadow: var(--shadow);
     overflow: hidden;
 }
@@ -314,7 +360,8 @@ body {
 }
 
 .command-list {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+    font-size: 0.85rem;
 }
 
 .command-item {
@@ -354,13 +401,17 @@ body {
 
 /* ===== SECTIONS ===== */
 .section {
-    margin-top: 100px;
+    margin-top: 40px;
     opacity: 0;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .section-header {
     text-align: center;
-    margin-bottom: 48px;
+    margin-bottom: 32px;
+    padding: 0 20px;
 }
 
 .section-title {
@@ -377,6 +428,7 @@ body {
     color: var(--text-muted);
     max-width: 600px;
     margin: 0 auto;
+    padding: 0 20px;
 }
 
 /* Stats */
@@ -384,7 +436,8 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 24px;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
+    padding: 0 20px;
 }
 
 .stat-card {
@@ -422,6 +475,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 32px;
+    padding: 0 20px;
 }
 
 .feature-card {
@@ -430,6 +484,9 @@ body {
     border-radius: 24px;
     padding: 32px;
     transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .feature-card:hover {
@@ -458,6 +515,7 @@ body {
 .feature-card p {
     color: var(--text-muted);
     line-height: 1.7;
+    flex-grow: 1;
 }
 
 /* ===== DASHBOARD COMING SOON ===== */
@@ -519,6 +577,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 32px;
+    padding: 0 20px;
 }
 
 .team-card {
@@ -543,6 +602,13 @@ body {
     object-fit: cover;
     margin-bottom: 24px;
     box-shadow: 0 16px 40px rgba(88, 101, 242, 0.3);
+    transition: all 0.3s ease;
+}
+
+.team-card:hover .team-avatar {
+    transform: scale(1.05);
+    border-color: var(--accent);
+    box-shadow: 0 20px 50px rgba(235, 69, 158, 0.4);
 }
 
 .team-card h3 {
@@ -561,6 +627,7 @@ body {
 .legal-section {
     max-width: 900px;
     margin: 0 auto;
+    padding: 0 20px;
 }
 
 .legal-card {
@@ -619,6 +686,11 @@ body {
     background: none;
     width: 100%;
     text-align: left;
+    transition: color 0.2s ease;
+}
+
+.faq-question:hover {
+    color: var(--primary);
 }
 
 .faq-answer {
@@ -626,6 +698,15 @@ body {
     color: var(--text-muted);
     font-size: 0.98rem;
     display: none;
+    line-height: 1.7;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.faq-answer[style*="block"] {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* ===== FOOTER ===== */
@@ -658,12 +739,166 @@ footer {
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-    .navbar { padding: 12px 20px; }
-    .nav-menu { gap: 8px; }
-    .main-container { padding: 40px 16px; }
-    .hero { padding: 24px 20px; margin-top: 20px; }
-    .cta-buttons { flex-direction: column; align-items: stretch; }
-    .btn { justify-content: center; }
+    .navbar { 
+        padding: 12px 20px; 
+        flex-wrap: wrap;
+    }
+    
+    .nav-menu { 
+        gap: 8px; 
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .nav-link {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+    
+    .main-container { 
+        padding: 30px 16px; 
+        margin-top: 80px;
+    }
+    
+    .hero { 
+        display: flex;
+        flex-direction: column;
+        padding: 24px 20px; 
+        margin-top: 20px;
+        gap: 30px;
+    }
+    
+    .hero-mockup {
+        height: auto;
+        width: 100%;
+    }
+    
+    .terminal {
+        width: 100%;
+        max-width: none;
+        padding: 20px;
+        margin: 0;
+        height: auto;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.2rem;
+        text-align: center;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+        text-align: center;
+    }
+    
+    .hero-features {
+        justify-content: center;
+        max-width: none;
+    }
+    
+    .cta-buttons { 
+        flex-direction: column; 
+        align-items: stretch; 
+        gap: 16px;
+        max-width: none;
+    }
+    
+    .btn { 
+        justify-content: center; 
+        padding: 14px 24px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 16px;
+        padding: 0 16px;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 0 16px;
+    }
+    
+    .team-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 24px;
+        padding: 0 16px;
+    }
+    
+    .team-card {
+        padding: 32px 24px;
+    }
+    
+    .team-avatar {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .legal-section {
+        padding: 0 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.95rem;
+    }
+    
+    .brand span {
+        font-size: 1.2rem;
+    }
+    
+    .btn {
+        font-size: 0.9rem;
+        padding: 12px 20px;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .feature-badge {
+        font-size: 0.85rem;
+        padding: 8px 12px;
+    }
+    
+    .terminal {
+        padding: 16px;
+    }
+    
+    .section {
+        margin-top: 30px;
+        padding: 0 16px;
+    }
+    
+    .section-header {
+        padding: 0;
+    }
+    
+    .section-subtitle {
+        padding: 0;
+    }
+    
+    .stats-grid {
+        padding: 0 16px;
+    }
+    
+    .features-grid {
+        padding: 0 16px;
+    }
+    
+    .team-grid {
+        padding: 0 16px;
+    }
+    
+    .legal-section {
+        padding: 0 16px;
+    }
 }
 </style>
 </head>
@@ -683,10 +918,10 @@ footer {
             <span>Chicken Boat</span>
         </a>
         <div class="nav-menu">
-            <a href="#" class="nav-link active" onclick="showPage('home'); return false;">Accueil</a>
-            <a href="#" class="nav-link" onclick="showPage('dashboard'); return false;">Dashboard</a>
-            <a href="#" class="nav-link" onclick="showPage('team'); return false;">Équipe</a>
-            <a href="#" class="nav-link" onclick="showPage('legal'); return false;">Légal</a>
+            <a href="#" class="nav-link active" data-page="home" onclick="showPage('home'); return false;">Accueil</a>
+            <a href="#" class="nav-link" data-page="dashboard" onclick="showPage('dashboard'); return false;">Dashboard</a>
+            <a href="#" class="nav-link" data-page="team" onclick="showPage('team'); return false;">Équipe</a>
+            <a href="#" class="nav-link" data-page="legal" onclick="showPage('legal'); return false;">Légal</a>
         </div>
     </nav>
 
@@ -730,6 +965,7 @@ footer {
                             <div style="width:8px;height:8px;background:#10B981;border-radius:50%;"></div>
                             En ligne • 24/7
                         </div>
+                        <br>
                         <div class="command-list">
                             <div class="command-item">
                                 <span class="cmd-name">/twitch</span>
@@ -751,100 +987,6 @@ footer {
                     </div>
                 </div>
             </section>
-
-            <!-- Stats -->
-            <section class="section stats-section">
-                <div class="section-header">
-                    <h2 class="section-title">Des chiffres qui parlent</h2>
-                    <p class="section-subtitle">Chicken Boat équipe déjà vos communautés avec succès</p>
-                </div>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-number">+15</div>
-                        <div class="stat-label">Serveurs actifs</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">+750</div>
-                        <div class="stat-label">Utilisateurs</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">99.9%</div>
-                        <div class="stat-label">Uptime</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">24/7</div>
-                        <div class="stat-label">Support</div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Features -->
-            <section class="section features-section">
-                <div class="section-header">
-                    <h2 class="section-title">Fonctionnalités puissantes</h2>
-                    <p class="section-subtitle">Tout ce dont vous avez besoin pour gérer et animer votre serveur</p>
-                </div>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">🛡️</div>
-                        <h3>Modération avancée</h3>
-                        <p>Sanctions automatiques, logs complets, anti-spam, anti-raid et protections configurables.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">📈</div>
-                        <h3>Système de levels</h3>
-                        <p>XP automatique, classements, récompenses de rôles et motivation des membres.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🎮</div>
-                        <h3>Fun & Jeux</h3>
-                        <p>Mini-jeux, commandes fun, animations et interactions pour dynamiser vos salons.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">⚙️</div>
-                        <h3>Utilitaires</h3>
-                        <p>Configuration facile, messages auto, infos serveur et outils pour le staff.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- FAQ -->
-            <section class="section faq-section">
-                <div class="section-header">
-                    <h2 class="section-title">Questions fréquentes</h2>
-                    <p class="section-subtitle">Réponses aux questions les plus courantes</p>
-                </div>
-                <div class="faq-container">
-                    <div class="faq-item">
-                        <button class="faq-question">
-                            <span>Chicken Boat est-il gratuit ?</span>
-                            <span class="faq-toggle">+</span>
-                        </button>
-                        <div class="faq-answer">
-                            Oui, Chicken Boat est entièrement gratuit. Aucune fonctionnalité payante n'est prévue pour le moment.
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <button class="faq-question">
-                            <span>Quelles permissions sont nécessaires ?</span>
-                            <span class="faq-toggle">+</span>
-                        </button>
-                        <div class="faq-answer">
-                            Le bot demande uniquement les permissions nécessaires à ses fonctionnalités. Vous pouvez personnaliser ces permissions dans les paramètres Discord.
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <button class="faq-question">
-                            <span>Comment obtenir du support ?</span>
-                            <span class="faq-toggle">+</span>
-                        </button>
-                        <div class="faq-answer">
-                            Rejoignez notre serveur support via le bouton ci-dessus pour obtenir de l'aide ou signaler un problème.
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
 
         <!-- DASHBOARD -->
         <div id="dashboard" class="page">
@@ -889,8 +1031,8 @@ footer {
                     </div>
                     <div class="team-card">
                         <img src="https://imagesend.fr/uploads/20260210/d14aa445601c49b5b1d1d468b6cec1f493e966de.webp" 
-                             alt="Fourty 3000" class="team-avatar">
-                        <h3>Fourty 3000</h3>
+                             alt="Fourty3000" class="team-avatar">
+                        <h3>Fourty3000</h3>
                         <div class="team-role">Directeur Technique</div>
                     </div>
                     <div class="team-card">
@@ -1002,8 +1144,18 @@ footer {
     function showPage(pageId) {
         document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
         document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-        document.getElementById(pageId).classList.add('active');
-        event?.target?.closest('.nav-link')?.classList.add('active');
+        
+        const targetPage = document.getElementById(pageId);
+        const targetLink = document.querySelector(`[data-page="${pageId}"]`);
+        
+        if (targetPage) {
+            targetPage.classList.add('active');
+        }
+        
+        if (targetLink) {
+            targetLink.classList.add('active');
+        }
+        
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -1012,17 +1164,24 @@ footer {
         q.addEventListener('click', () => {
             const answer = q.nextElementSibling;
             const toggle = q.querySelector('.faq-toggle');
-            const isOpen = answer.style.display === 'block';
+            const isOpen = answer && answer.style.display === 'block';
             
-            answer.style.display = isOpen ? 'none' : 'block';
-            toggle.textContent = isOpen ? '+' : '−';
+            if (answer) {
+                answer.style.display = isOpen ? 'none' : 'block';
+            }
+            
+            if (toggle) {
+                toggle.textContent = isOpen ? '+' : '−';
+            }
             
             // Smooth height animation
-            gsap.to(answer, {
-                height: isOpen ? 0 : 'auto',
-                duration: 0.3,
-                ease: "power2.out"
-            });
+            if (answer) {
+                gsap.to(answer, {
+                    height: isOpen ? 0 : 'auto',
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            }
         });
     });
 
@@ -1043,7 +1202,10 @@ footer {
 
     // Stats counter animation
     gsap.utils.toArray('.stat-number').forEach(stat => {
-        const target = parseFloat(stat.textContent.replace(/[^0-9.-]+/g,""));
+        const text = stat.textContent;
+        const target = parseFloat(text.replace(/[^0-9.-]+/g, ""));
+        const suffix = text.includes('k') ? 'k' : '';
+        
         gsap.to(stat, {
             scrollTrigger: {
                 trigger: stat,
@@ -1054,16 +1216,44 @@ footer {
             ease: "power2.out",
             snap: { innerHTML: 1 },
             onUpdate: function() {
-                stat.innerHTML = Math.floor(this.targets()[0].innerHTML) + (target > 10 ? 'k' : '');
+                const currentValue = Math.floor(this.targets()[0].innerHTML);
+                stat.innerHTML = currentValue + suffix;
             }
         });
     });
 
     // Feature cards hover
     gsap.utils.toArray('.feature-card, .stat-card, .team-card').forEach(card => {
-        card.addEventListener('mouseenter', () => gsap.to(card, { scale: 1.02, duration: 0.3 }));
-        card.addEventListener('mouseleave', () => gsap.to(card, { scale: 1, duration: 0.3 }));
+        card.addEventListener('mouseenter', () => {
+            gsap.to(card, { 
+                scale: 1.02, 
+                y: -4,
+                duration: 0.3,
+                ease: "power2.out"
+            });
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            gsap.to(card, { 
+                scale: 1, 
+                y: 0,
+                duration: 0.3,
+                ease: "power2.out"
+            });
+        });
     });
+    
+    // Error handling
+    window.addEventListener('error', (e) => {
+        console.warn('Script error handled:', e.message);
+    });
+    
+    // Performance optimization
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => {
+            console.log('Chicken Boat Site - Ready');
+        });
+    }
 </script>
 
 </body>
